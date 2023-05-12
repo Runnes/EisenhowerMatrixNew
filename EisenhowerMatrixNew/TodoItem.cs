@@ -9,7 +9,7 @@ public class TodoItem
     //Attributes - > Shouldn't those be named Fields?
     private string title; //description: title of todoItem
     private DateTime deadline; //description: deadline of todoItem, year is always set to 2020
-    private bool isDone; //description: contains true if TODO item is done, otherwise contains false. Default value is false
+    public bool isDone; //description: contains true if TODO item is done, otherwise contains false. Default value is false
 
     //Constructor
     public TodoItem(string Title, DateTime Deadline,bool IsDone =false)
