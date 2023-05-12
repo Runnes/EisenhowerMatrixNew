@@ -48,10 +48,11 @@ public class TodoMatrix
 
     }
 
-    public string GetStatus(bool isImportant, bool isUrgent ) //TODO 
+    public bool GetStatus(bool isImportant, bool isUrgent ) //TODO 
 
     {
-        var x = 0;
+        var x = false;
+        return x;
         // switch (isImportant 
         // {
         //     case "":
