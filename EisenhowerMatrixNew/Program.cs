@@ -28,5 +28,5 @@ using EisenhowerMatrixNew;
 TodoMatrix karoltest = new TodoMatrix();
 foreach (var x in karoltest.GetQuarters())
 {
-    Console.WriteLine(x.Value.);
+    Console.WriteLine(x.Value);
 }
