@@ -12,9 +12,9 @@ public class TodoQuarter
         toDoItems = new List<TodoItem>();
     }
 
-    public void AddItem(string title, DateTime deadline)
+    public void AddItem(string Title, DateTime Deadline)
     {
-        TodoItem item = new TodoItem(title, deadline); //nowa instancja ToDoItem klasy
+        TodoItem item = new TodoItem(Title, Deadline); //nowa instancja ToDoItem klasy
         toDoItems.Add(item);
         
     }

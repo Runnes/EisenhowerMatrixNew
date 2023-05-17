@@ -22,42 +22,52 @@ public class TodoMatrix
 
     }
 
-    public void AddItem(string title, DateTime deadline, bool isImportant)
+    public void AddItem(string title, DateTime deadline, bool isImportant = false)
     {
-        TodoQuarter item = new TodoQuarter();
-        // todoQuarters.Add("IU",item.AddItem(title,deadline));
-       
-       
+        string status = GetStatus(deadline, isImportant);
+        todoQuarters[status] = new TodoQuarter();
     }
+    //
+    // public bool IsUrgent(int id)
+    // {
+    //     TodoQuarter item = new TodoQuarter();
+    //     TodoItem itemStatus = item.GetItem(id);
+    //     DateTime itemDeadline = itemStatus.GetDeadline();
+    //     switch (DateTime.Compare(itemDeadline.Date ,DateTime.Today))
+    //     {
+    //         case <=3:
+    //             return false;
+    //         case >3:
+    //             return true;
+    //         
+    //     }
+    //
+    //
+    //
+    // }
 
-    public bool IsUrgent(int id)
+    public string GetStatus(DateTime deadline, bool isImportant) //TODO 
     {
-        TodoQuarter item = new TodoQuarter();
-        TodoItem itemStatus = item.GetItem(id);
-        DateTime itemDeadline = itemStatus.GetDeadline();
-        switch (DateTime.Compare(itemDeadline.Date ,DateTime.Today))
+        DateTime today = DateTime.Now;
+        TimeSpan ts = deadline - today;
+        switch (ts.Days)
         {
-            case <=3:
-                return false;
-            case >3:
-                return true;
-            
+            case <= 3:
+                if (isImportant)
+                {
+                    return "IU";
+                }
+
+                return "NU";
+            case > 3:
+                if (isImportant)
+                {
+                    return "IN";
+                }
+
+                return "NN";
+
         }
-
-
-
-    }
-
-    public bool GetStatus(bool isImportant, bool isUrgent ) //TODO 
-
-    {
-        var x = false;
-        return x;
-        // switch (isImportant 
-        // {
-        //     case "":
-        //         break;
-        // }
     }
 
 }

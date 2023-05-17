@@ -7,4 +7,11 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Lib.Extensions.System.Windows.Forms" Version="22.4.12" />
+      <PackageReference Include="PresentationFramework" Version="4.6.0" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+      <PackageReference Include="System.Windows.Extensions" Version="8.0.0-preview.4.23259.5" />
+    </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Data;
 using System.Runtime.InteropServices.JavaScript;
 using EisenhowerMatrixNew;
 
@@ -25,8 +26,60 @@ using EisenhowerMatrixNew;
 //     Console.WriteLine(s);
 // }
 
-TodoMatrix karoltest = new TodoMatrix();
-foreach (var x in karoltest.GetQuarters())
+// TodoMatrix karoltest = new TodoMatrix();
+// // TodoQuarter karolx = new TodoQuarter();
+// karoltest.AddItem("karoltest",DateTime.Today);
+// karoltest.AddItem("karoltest",DateTime.Today,false);
+// // Console.WriteLine(karoltest.GetStatus(DateTime.Today, false));
+// Console.WriteLine(karoltest.GetQuarters()["NU"]);
+// Console.WriteLine(karoltest.Geti);
+// foreach (var x in karoltest.GetQuarters())
+// {
+//     try
+//     {
+//         Console.WriteLine(x.Key);
+//         Console.WriteLine(x.Value.GetItem(0));
+//     }
+//     finally
+//     {
+//         Console.WriteLine("test try");
+//     }
+// }
+// karoltest.IsUrgent(1);
+
+var lines = ConnectionSQL.CreateCommand("SELECT * FROM TASKS");
+// while (lines.Read()){
+//     Console.WriteLine(String.Format("{0}", lines[0]));
+// }
+// ConnectionSQL.CreateCommand("INSERT INTO TASKS ");
+// ;
+ // Console.WriteLine(lines);
+DataSet dataSet = new DataSet("Suppliers");
+DataSet data = ConnectionSQL.SelectRows(dataSet, "SELECT * FROM TASKS");
+DataRow dataRow = data.Tables[0].Rows[0];
+// Console.WriteLine(data.Tables[0].Rows[0][2]);
+foreach (DataRow cell in data.Tables[0].Rows)
 {
-    Console.WriteLine(x.Value);
+ Console.WriteLine(cell);
 }
+// foreach (var row in data.Tables["TASKS"].Rows)
+//  
+// {
+//  try
+//  {
+//   Console.WriteLine(row);
+//   Console.WriteLine(row.ToString());
+//
+//  }
+//  finally
+//  {
+//   Console.WriteLine("karol");
+//  }
+// }
+
+
+// Console.WriteLine(dataRow["TaskName"]);
+
+
+
+

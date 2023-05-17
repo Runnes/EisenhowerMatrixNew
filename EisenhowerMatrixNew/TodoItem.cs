@@ -12,7 +12,7 @@ public class TodoItem
     public bool isDone; //description: contains true if TODO item is done, otherwise contains false. Default value is false
 
     //Constructor
-    public TodoItem(string Title, DateTime Deadline,bool IsDone =false)
+    public TodoItem(string Title, DateTime Deadline,bool IsDone =false)//bool IsImportant = false,bool IsUrgent = false <- jakby nie dzialalo wywalic
     {
         title = Title;
         deadline = Deadline;
