@@ -224,6 +224,25 @@ public class ConnectionSQL
 
         
     }
+
+    public static void SQLChangeStatus(int _TaskId)
+
+    {
+        string connectionString = ConnectionString();
+        string queryString =
+            "UPDATE TASKS SET TaskStatusDone = 1 WHERE TaskId = @TaskId";
+        using (SqlConnection connection =
+               new SqlConnection(connectionString))
+        {
+            SqlCommand _query = new SqlCommand(queryString, connection);
+            _query.Parameters.AddWithValue("@TaskId",_TaskId);
+            _query.Connection.Open();
+            _query.ExecuteNonQuery();
+            _query.Connection.Close();
+
+        }
+        
+    }
     
 
 }

@@ -11,8 +11,8 @@ using Spectre.Console.Extensions.Table;
 
 
 
-
-ConnectionSQL.AskForTask();
+ConnectionSQL.SQLChangeStatus(2);
+// ConnectionSQL.AskForTask();
 // ConnectionSQL.AddTask(8,"TestADD","Not Important",DateTime.Now);
 DataSet data = ConnectionSQL.GetTasksDataset( "SELECT * FROM TASKS");
 var table = ConnectionSQL.PrintMatrix(data);
@@ -21,7 +21,8 @@ DataTable dt = data.Tables["TASKS"];
 var table2 = table.FromDataTable().Border(TableBorder.Rounded);
 
 
-AnsiConsole.Render(table2);
+ AnsiConsole.Render(table2);
+
 
 
 
