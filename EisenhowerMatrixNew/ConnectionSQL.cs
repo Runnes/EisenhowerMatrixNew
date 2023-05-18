@@ -140,10 +140,10 @@ public class ConnectionSQL
         return dt;
     }
 
-    public static void AddTask(int TaskID, string TaskName, string TaskImportance, DateTime TaskDeadline)
+    public static void SQLAddTask(int TaskID, string TaskName, string TaskImportance, DateTime TaskDeadline)
     {
         string connectionString = ConnectionString();
-        string TaskUrgency = "Urgent"; //TO DO Placeholder
+        string TaskUrgency = GetUrgency(TaskDeadline);
         string queryString =
             "INSERT INTO TASKS(TaskID, TaskName,TaskImportance,TaskUrgency,TaskDeadline) VALUES(@TaskID,@TaskName,@TaskImportance,@TaskUrgency,@TaskDeadline)";
 
@@ -177,8 +177,31 @@ public class ConnectionSQL
         {
             return "Not Urgent";
         }
-
         return "Urgent";
+    }
+
+    public static void AskForTask()
+    {
+        Console.WriteLine("Enter Task Name:");
+        string TaskName= Console.ReadLine();
+        Console.WriteLine("Enter Task Id:");
+        string TaskID = Console.ReadLine();
+        int _TaskId = Int32.Parse(TaskID);
+        Console.WriteLine("Enter Task Importance:");
+        string TaskImportance= Console.ReadLine();
+        Console.WriteLine("Enter Task Deadline:");
+        string TaskDeadline= Console.ReadLine();
+        DateTime _TaskDeadline = DateTime.Parse(TaskDeadline);
+        
+        
+        SQLAddTask(_TaskId,TaskName,TaskImportance,_TaskDeadline);
+
+    }
+
+    interface IAskForTask
+    {
+        int TaskId();
+        
     }
     
 }
