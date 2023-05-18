@@ -140,8 +140,9 @@ public class ConnectionSQL
         return dt;
     }
 
-    public static void SQLAddTask(int TaskID, string TaskName, string TaskImportance, DateTime TaskDeadline)
+    public static void SQLAddTask(string TaskName, string TaskImportance, DateTime TaskDeadline)
     {
+        int TaskID = GetRows();
         string connectionString = ConnectionString();
         string TaskUrgency = GetUrgency(TaskDeadline);
         string queryString =
@@ -153,7 +154,7 @@ public class ConnectionSQL
         {
             
             SqlCommand _query = new SqlCommand(queryString, connection);
-            _query.Parameters.AddWithValue("@TaskID", TaskID);
+            _query.Parameters.AddWithValue("@TaskID", TaskID+1);
             _query.Parameters.AddWithValue("@TaskName", TaskName);
             _query.Parameters.AddWithValue("@TaskImportance", TaskImportance);
             _query.Parameters.AddWithValue("@TaskUrgency", TaskUrgency);
@@ -184,9 +185,6 @@ public class ConnectionSQL
     {
         Console.WriteLine("Enter Task Name:");
         string TaskName= Console.ReadLine();
-        Console.WriteLine("Enter Task Id:");
-        string TaskID = Console.ReadLine();
-        int _TaskId = Int32.Parse(TaskID);
         Console.WriteLine("Enter Task Importance:");
         string TaskImportance= Console.ReadLine();
         Console.WriteLine("Enter Task Deadline:");
@@ -194,7 +192,7 @@ public class ConnectionSQL
         DateTime _TaskDeadline = DateTime.Parse(TaskDeadline);
         
         
-        SQLAddTask(_TaskId,TaskName,TaskImportance,_TaskDeadline);
+        SQLAddTask(TaskName,TaskImportance,_TaskDeadline);
 
     }
 
@@ -203,6 +201,30 @@ public class ConnectionSQL
         int TaskId();
         
     }
+
+    public static int GetRows()
+    {
+        string connectionString = ConnectionString();
+        string queryString =
+            "SELECT COUNT(*) FROM TASKS";
+
+        //DataSet dataset = new DataSet("Tasks");
+        using (SqlConnection connection =
+               new SqlConnection(connectionString))
+        {
+
+            SqlCommand _query = new SqlCommand(queryString, connection);
+            _query.Connection.Open();
+            // _query.ExecuteNonQuery();
+            string RowCounter = _query.ExecuteScalar().ToString();
+            _query.Connection.Close();
+            return Int32.Parse(RowCounter);
+
+        }
+
+        
+    }
     
+
 }
 
