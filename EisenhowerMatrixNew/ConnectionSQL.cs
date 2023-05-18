@@ -93,7 +93,7 @@ public class ConnectionSQL
         foreach (DataRow row in dataset.Tables["Tasks"].Rows)
         {
             string TaskName = row[1].ToString();
-            if (row[2].ToString() == "Urgent" & row[3].ToString() == "Important" & firstImportant)
+            if (row[2].ToString() == "Urgent" & row[3].ToString() == "Important")
             {
                 DataRow _row = dt.NewRow();
                 _row["Importance"] = "Important";
@@ -103,49 +103,41 @@ public class ConnectionSQL
                 firstImportant = false;
             }
 
-            if (row[2].ToString() == "Urgent" & row[3].ToString() == "Important" & !firstImportant)
+            if (row[2].ToString() == "Urgent" & row[3].ToString() == "Not Important")
             {
                 DataRow _row = dt.NewRow();
-                _row["Importance"] = " ";
+                _row["Importance"] = "Not Important";
                 _row["Urgent"] = TaskName;
                 _row["Not Urgent"] = " ";
-                dt.Rows.Add(_row);
-
-            }
-
-            if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Important" & firstImportant)
-            {
-                DataRow _row = dt.NewRow();
-                _row["Importance"] = "Important";
-                _row["Urgent"] = " ";
-                _row["Not Urgent"] = TaskName;
                 dt.Rows.Add(_row);
                 firstImportant = false;
             }
 
-            if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Important" & firstNonImportant)
+            if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Not Important")
             {
                 DataRow _row = dt.NewRow();
                 _row["Importance"] = "Not Important";
                 _row["Urgent"] = " ";
                 _row["Not Urgent"] = TaskName;
                 dt.Rows.Add(_row);
-                firstNonImportant = false;
+                firstImportant = false;
             }
 
-            if (row[2].ToString() == "Urgent" & row[3].ToString() == "Important" & !firstNonImportant)
+            if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Important")
             {
                 DataRow _row = dt.NewRow();
-                _row["Importance"] = " ";
-                _row["Urgent"] = TaskName;
-                _row["Not Urgent"] = " ";
+                _row["Importance"] = "Important";
+                _row["Urgent"] = " ";
+                _row["Not Urgent"] = TaskName;
                 dt.Rows.Add(_row);
+                firstImportant = false;
             }
 
+
+            
+
         }
-
         return dt;
-
     }
 
     public static void AddTask(int TaskID, string TaskName, string TaskImportance, DateTime TaskDeadline)
@@ -176,5 +168,18 @@ public class ConnectionSQL
         }
         Console.WriteLine("Done adding");
     }
+
+    public static string GetUrgency(DateTime taskDeadline)
+    
+    { 
+        double result = (taskDeadline - DateTime.Now).TotalDays;
+        if (result > 3)
+        {
+            return "Not Urgent";
+        }
+
+        return "Urgent";
+    }
+    
 }
 
