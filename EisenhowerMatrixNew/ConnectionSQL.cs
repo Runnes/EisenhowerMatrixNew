@@ -83,17 +83,24 @@ public class ConnectionSQL
         return "Server= localhost; Database= EisenhowerMatrix; Integrated Security=SSPI;";
     }
     
-    public static DataSet SelectRows(DataSet dataset,string queryString)
+    public static DataSet GetTasksDataset(string queryString)
     {
         string connectionString = ConnectionString();
+        DataSet dataset = new DataSet("Tasks");
         using (SqlConnection connection =
                new SqlConnection(connectionString))
         {
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = new SqlCommand(
                 queryString, connection);
-            adapter.Fill(dataset);
+            adapter.Fill(dataset,"TASKS");
             return dataset;
-        }
+            
+        }   
     }
+
+    // public static DataRow GetTasksRows(dataset)
+    // {
+    //     dataset = 
+    // }
 }
