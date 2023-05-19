@@ -2,6 +2,7 @@ using System;
 using System.Data;
 //using Lib.Extensions.System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Documents;
 
@@ -96,42 +97,93 @@ public class ConnectionSQL
             if (row[2].ToString() == "Urgent" & row[3].ToString() == "Important")
             {
                 DataRow _row = dt.NewRow();
-                _row["Importance"] = "Important";
+                switch (firstImportant)
+                {
+                    case true:
+                        _row["Importance"] = "Important";
+                        firstImportant = false;
+                        break;
+                    case false:
+                        _row["Importance"] = " ";
+                        break;
+                }
+
                 _row["Urgent"] = TaskName;
                 _row["Not Urgent"] = " ";
                 dt.Rows.Add(_row);
-                firstImportant = false;
-            }
 
-            if (row[2].ToString() == "Urgent" & row[3].ToString() == "Not Important")
+            }
+            if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Important")
             {
                 DataRow _row = dt.NewRow();
-                _row["Importance"] = "Not Important";
+                switch (firstImportant)
+                {
+                    case true:
+                        _row["Importance"] = "Important";
+                        firstImportant = false;
+                        break;
+                    case false:
+                        _row["Importance"] = " ";
+                        break;
+                }
+                _row["Urgent"] = " ";
+                _row["Not Urgent"] = TaskName;
+                dt.Rows.Add(_row);
+                
+            }
+        }
+        DataRow rowBreak = dt.NewRow();
+        rowBreak["Importance"] = "-------------";
+        rowBreak["Urgent"] = "------------";
+        rowBreak["Not Urgent"] = "------------";
+        dt.Rows.Add(rowBreak);
+        foreach (DataRow row in dataset.Tables["Tasks"].Rows)
+            
+        {
+            string TaskName = row[1].ToString();
+            
+        if (row[2].ToString() == "Urgent" & row[3].ToString() == "Not Important")
+            {
+                
+                DataRow _row = dt.NewRow();
+                switch (firstNonImportant)
+                {
+                    case true:
+                        _row["Importance"] = "Not Important";
+                        firstNonImportant = false;
+                        break;
+                    case false:
+                        _row["Importance"] = " ";
+                        break;
+                }
+                
                 _row["Urgent"] = TaskName;
                 _row["Not Urgent"] = " ";
                 dt.Rows.Add(_row);
-                firstImportant = false;
+                
             }
 
             if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Not Important")
             {
                 DataRow _row = dt.NewRow();
-                _row["Importance"] = "Not Important";
+                switch (firstNonImportant)
+                {
+                    case true:
+                        _row["Importance"] = "Not Important";
+                        firstNonImportant = false;
+                        break;
+                    case false:
+                        _row["Importance"] = " ";
+                        break;
+                }
+                
                 _row["Urgent"] = " ";
                 _row["Not Urgent"] = TaskName;
                 dt.Rows.Add(_row);
-                firstImportant = false;
+                
             }
 
-            if (row[2].ToString() == "Not Urgent" & row[3].ToString() == "Important")
-            {
-                DataRow _row = dt.NewRow();
-                _row["Importance"] = "Important";
-                _row["Urgent"] = " ";
-                _row["Not Urgent"] = TaskName;
-                dt.Rows.Add(_row);
-                firstImportant = false;
-            }
+  
 
 
             
